@@ -181,6 +181,15 @@ impl Image for BitcoinCore {
 
             sleep(Duration::from_millis(sleep_period))
         }
+
+        use std::process::Command;
+
+        info!("launch `docker ps` command");
+        let output = Command::new("docker")
+            .arg("ps")
+            .output()
+            .expect("Failed to execute `docker ps` command");
+        info!("{:?}", output);
     }
 
     fn args(&self) -> <Self as Image>::Args {
